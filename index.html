@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>حسابي لربح الجملة والمفرد</title>
+<title>نظام الحسابي لمعرفة التكاليف والأرباح</title>
 <style>
 :root{--card:#fff;--text:#182234;--muted:#64748b;--line:#e4e9f2;--green:#0f766e;--green-bg:#ecfdf5;--danger:#b91c1c;--shadow:0 10px 30px rgba(15,23,42,.08)}
 *{box-sizing:border-box}
@@ -20,6 +20,9 @@ h1{margin:0 0 6px;font-size:26px}
 input,select{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px;background:#fff;color:#0f172a;outline:none;transition:.2s}
 input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
 .hint{font-size:12px;color:var(--muted);display:block;margin-top:6px}
+.inp-wrap{position:relative}
+.inp-wrap input{padding-inline-end:58px}
+.suffix{position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);color:#334155;background:#f1f5f9;border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:13px;font-weight:800;pointer-events:none}
 .chips{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
 .chip{border:1px solid #cbd5e1;background:#f1f5f9;border-radius:999px;padding:8px 16px;font-weight:800;cursor:pointer;font-size:14px}
 .chip.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
@@ -38,8 +41,8 @@ input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,23
 <body>
 <div class="wrap">
 <header>
-<h1>حسابي لربح الجملة والمفرد</h1>
-<div class="sub">أدخل التكلفة الإجمالية مرة واحدة، وجميع العمليات (جملة ومفرد) تتم تلقائياً.</div>
+<h1>نظام الحسابي لمعرفة التكاليف والأرباح</h1>
+<div class="sub">أدخل التكلفة الإجمالية مرة واحدة، وجميع عمليات التكاليف والأرباح (جملة ومفرد) تتم تلقائياً.</div>
 </header>
 
 <section class="card">
@@ -83,8 +86,11 @@ input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,23
 <input id="cartons" class="num" inputmode="numeric" autocomplete="off" value="1">
 </div>
 <div class="field">
-<label for="margin">هامش الربح % (من الجملة)</label>
+<label for="margin">هامش الربح</label>
+<div class="inp-wrap">
 <input id="margin" class="num" inputmode="decimal" autocomplete="off" value="0">
+<span class="suffix">%</span>
+</div>
 </div>
 <div class="field">
 <label for="expenseType">مصاريف النقل والصيانة وكراء المندوب</label>
@@ -95,15 +101,19 @@ input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,23
 </div>
 <div class="field">
 <label for="expenseValue">قيمة المصاريف</label>
+<div class="inp-wrap">
 <input id="expenseValue" class="num" inputmode="decimal" autocomplete="off" value="0">
+<span class="suffix" id="expenseSuffix">د.ع</span>
+</div>
 </div>
 </div>
 <div class="results">
 <div class="result"><span>سعر الكارتون الواحد (كلفة)</span><output id="costPerCarton">0 د.ع</output></div>
 <div class="result"><span>سعر بيع الكارتون مع الربح</span><output id="salePerCarton">0 د.ع</output></div>
+<div class="result"><span>إجمالي مبلغ البيع بالجملة</span><output id="totalSale">0 د.ع</output></div>
 <div class="result"><span>إجمالي الربح قبل المصاريف</span><output id="grossTotal">0 د.ع</output></div>
-<div class="result"><span>المصاريف المحتسبة</span><output id="expenseOut">0 د.ع</output></div>
-<div class="result good"><span>صافي إجمالي الربح من الجملة</span><output id="netTotal">0 د.ع</output></div>
+<div class="result"><span>المصاريف المحتسبة (−)</span><output id="expenseOut">0 د.ع</output></div>
+<div class="result good"><span>صافي إجمالي الربح من الجملة (الربح − المصاريف)</span><output id="netTotal">0 د.ع</output></div>
 <div class="result good"><span>صافي ربح الكارتون الواحد</span><output id="netPerCarton">0 د.ع</output></div>
 </div>
 </section>
@@ -129,7 +139,7 @@ input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,23
 const $=id=>document.getElementById(id);
 const totalCost=$('totalCost'),currency=$('currency'),rate=$('rate'),
 cartons=$('cartons'),margin=$('margin'),expenseType=$('expenseType'),
-expenseValue=$('expenseValue'),pieces=$('pieces');
+expenseValue=$('expenseValue'),pieces=$('pieces'),expenseSuffix=$('expenseSuffix');
 
 function parseNum(el){return parseFloat((el.value||'').replace(/[,،٬\s]/g,''))||0}
 
@@ -168,6 +178,8 @@ function update(){
   const grossTotal=totalIQD*m/100;
   const grossPerCarton=c>0?grossTotal/c:0;
   const salePerCarton=costPerCarton+grossPerCarton;
+  const totalSale=totalIQD+grossTotal;
+
   const ev=Math.max(parseNum(expenseValue),0);
   const expense=expenseType.value==='percent'?Math.max(grossTotal,0)*ev/100:ev;
   const netTotal=grossTotal-expense;
@@ -175,6 +187,7 @@ function update(){
 
   set('costPerCarton',costPerCarton);
   set('salePerCarton',salePerCarton);
+  set('totalSale',totalSale);
   set('grossTotal',grossTotal);
   set('expenseOut',expense);
   set('netTotal',netTotal);
@@ -182,6 +195,8 @@ function update(){
   styleResult('grossTotal',grossTotal);
   styleResult('netTotal',netTotal);
   styleResult('netPerCarton',netPerCarton);
+
+  expenseSuffix.textContent=expenseType.value==='percent'?'%':'د.ع';
 
   const p=Math.max(parseNum(pieces),0);
   set('costPerPiece',p>0?totalIQD/p:0);
