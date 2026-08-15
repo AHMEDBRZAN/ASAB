@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>نظام الحسابي لمعرفة التكاليف والأرباح</title>
 <style>
-:root{--card:#fff;--text:#182234;--muted:#64748b;--line:#e4e9f2;--1f5fgreen:#0f766e;--green-bg:#ecfdf5;--danger:#b91c1c;--yellow-bg:#fffbeb;--yellow-line:#fde68a;--yellow-text:#b45309;--shadow:0 10px 30px rgba(15,23,42,.08)}
+:root{--card:#fff;--text:#182234;--muted:#64748b;--line:#e4e9f2;--green:#0f766e;--green-bg:#ecfdf5;--danger:#b91c1c;--yellow-bg:#fffbeb;--yellow-line:#fde68a;--yellow-text:#b45309;--shadow:0 10px 30px rgba(15,23,42,.08)}
 *{box-sizing:border-box}
 body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#f8fbff,#eef3f9);color:var(--text);min-height:100vh}
 .wrap{max-width:1100px;margin:0 auto;padding:20px}
@@ -18,331 +18,169 @@ h1{margin:0 0 6px;font-size:26px}
 .card h2{margin:0 0 14px;font-size:19px}
 .badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:12px;font-weight:800;margin-inline-start:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
-.field label{display:block;margin-bottom:6px;font-size:14px;color:#33419;border-radius:999px;padding:8px55;font-weight:700}
+.field label{display:block;margin-bottom:6px;font-size:14px;color:#334155;font-weight:700}
 input,select{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px;background:#fff;color:#0f172a;outline:none;transition:.2s}
-input:focus,select:focus{border-color:#2563eb;box 16px-shadow:0 0 0 4px rgba(37,99,235,.12)}
+input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
 .hint{font-size:12px;color:var(--muted);display:block;margin-top:6px}
 .inp-wrap{position:relative}
 .inp-wrap input{padding-inline-end:58px}
 .suffix{position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);color:#334155;background:#f1f5f9;border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:13px;font-weight:800;pointer-events:none}
 .chips{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.chip{border:1px solid #cbd5e1;background:#f1f5f9;border-radius:999px;padding:8px 16px;font-weight:8;font-weight:800;cursor00;cursor:pointer;font-size::pointer;font-size:14px}14px}
-.chip.active
-.chip.active{background:#1{background:#1d4ed8d4ed8;color:#fff;border;color:#fff;border-color:#1d-color:#1d4ed8}4ed8}
-.results{display
-.results{display:grid;grid:grid;grid-template-columns:repeat-template-columns:repeat(auto-fit,minmax(auto-fit,minmax(21(210px,10px,1fr));gap:fr));gap:12px;margin12px;margin-top:16-top:16px}
-.resultpx}
-.result{background:#f{background:#f8fafc;border8fafc;border:1px solid:1px solid var(--line); var(--line);border-radius:1border-radius:14px;padding:4px;padding:14px}14px}
-.result span{
-.result span{display:block;font-sizedisplay:block;font-size:13px:13px;color:var(--;color:var(--muted);marginmuted);margin-bottom:6px-bottom:6px}
-.result output}
-.result output{font-size:{font-size:20px;font20px;font-weight:80-weight:800;color:#00;color:#0f172f172a;word-breaka;word-break:break-all}:break-all}
-.result.big output
-.result.big output{font-size:{font-size:26px}26px}
-.result.good{
-.result.good{background:var(--background:var(--green-bg);bordergreen-bg);border-color:#99-color:#99f6e4f6e4}
-.result.good}
-.result.good output{color: output{color:var(--green)}var(--green)}
-.result.bad
-.result.bad{background:#fef{background:#fef2f2;border2f2;border-color:#fecaca-color:#fecaca}
-.result.bad}
-.result.bad output{color: output{color:var(--danger)}var(--danger)}
-.result.yellow{
-.result.yellow{background:var(--background:var(--yellow-bg);borderyellow-bg);border-color:-color:var(--yellow-linevar(--yellow-line)}
-.result.yellow)}
-.result.yellow output{color: output{color:var(--yellow-textvar(--yellow-text)}
-@media)}
-@media(max-width:6(max-width:640px){40px){h1{fonth1{font-size:22-size:22px}.wrap{px}.wrap{padding:14padding:14px}}
-px}}
-</style>
+.chip{border:1px solid #cbd5e1;background:#f1f5f9;border-radius:999px;padding:8px 16px;font-weight:800;cursor:pointer;font-size:14px}
+.chip.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
+.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:16px}
+.result{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px}
+.result span{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.result output{font-size:20px;font-weight:800;color:#0f172a;word-break:break-all}
+.result.big output{font-size:26px}
+.result.good{background:var(--green-bg);border-color:#99f6e4}
+.result.good output{color:var(--green)}
+.result.bad{background:#fef2f2;border-color:#fecaca}
+.result.bad output{color:var(--danger)}
+.result.yellow{background:var(--yellow-bg);border-color:var(--yellow-line)}
+.result.yellow output{color:var(--yellow-text)}
+@media(max-width:640px){h1{font-size:22px}.wrap{padding:14px}}
 </style>
 </head>
-<body</head>
 <body>
-<div class>
 <div class="wrap">
-="wrap">
 <header>
-<h<header>
-<h1>نظام1>نظام الحسابي لمعرفة الت الحسابي لمعرفة التكاليف والأرباحكاليف والأرباح</h1></h1>
-<div class="
-<div class="sub">أدخلsub">أدخل التكلفة الإجم التكلفة الإجمالية مرة واحدة،الية مرة واحدة، وجميع عمليات الت وجميع عمليات التكاليف والأرباحكاليف والأرباح (جملة وم (جملة ومفرد) تتمفرد) تتم تلقائياً. تلقائياً.</div>
-</div>
+<h1>نظام الحسابي لمعرفة التكاليف والأرباح</h1>
+<div class="sub">أدخل التكلفة الإجمالية مرة واحدة، وجميع عمليات التكاليف والأرباح (جملة ومفرد) تتم تلقائياً.</div>
 </header>
 
-<div</header>
-
-<div class="unitbar class="unitbar">
-<span>">
-<span>عرض النتائج:</spanعرض النتائج:</span>
-<div class>
-<div class="chips">="chips">
-<button type
-<button type="button" class="button" class="chip unit"="chip unit" data-unit="1 data-unit="1">دينار">دينار</button>
-<button</button>
-<button type="button" type="button" class="chip unit class="chip unit active" data-unit active" data-unit="100="1000">بالآ0">بالآلاف</button>لاف</button>
+<div class="unitbar">
+<span>عرض النتائج:</span>
+<div class="chips">
+<button type="button" class="chip unit" data-unit="1">دينار</button>
+<button type="button" class="chip unit active" data-unit="1000">بالآلاف</button>
 </div>
 </div>
-</div>
-</div>
-
-<section class="
 
 <section class="card">
-<hcard">
-<h2>1)2>1) تحديد التكلفة الإ تحديد التكلفة الإجمالية</hجمالية</h2>
-<div2>
-<div class="grid"> class="grid">
+<h2>1) تحديد التكلفة الإجمالية</h2>
+<div class="grid">
 <div class="field">
-<label
+<label for="totalCost">سعر التكلفة الإجمالي</label>
+<input id="totalCost" class="num" inputmode="decimal" autocomplete="off" placeholder="مثال: 5,000">
+</div>
 <div class="field">
-<label for="totalCost for="totalCost">سعر الت">سعر التكلفة الإجمالي</label>
-<inputكلفة الإجمالي</label>
-<input id="totalCost id="totalCost" class="num" class="num" inputmode="" inputmode="decimal" autocomplete="decimal" autocomplete="off" placeholder="off" placeholder="مثال: مثال: 5,005,000">
-0">
-</div>
-</div>
-<div class="field<div class="field">
-<label for">
-<label for="currency">ال="currency">العملة</label>
+<label for="currency">العملة</label>
 <select id="currency">
-<option value="عملة</label>
-<select id="currency">
-<option value="USD">دولUSD">دولار</option>ار</option>
-<option value="
-<option value="IQD">عIQD">عراقي</option>راقي</option>
-</select>
+<option value="USD">دولار</option>
+<option value="IQD">عراقي</option>
 </select>
 </div>
-</div>
-<div class="
 <div class="field">
-<labelfield">
-<label for="rate"> for="rate">سعر الدولارسعر الدولار</label>
-<div</label>
-<div class="chips class="chips">
-<button type">
-<button type="button" class="button" class="chip" data-rate="1500">1,500</button>
-<button type="button="chip" data-rate="1500">1,500</button>
-<button type="button" class="chip" class="chip" data-rate="" data-rate="15501550">1,5">1,550</button50</button>
-<button type>
-<button type="button" class="button" class="chip" data="chip" data-rate="14-rate="1490">190">1,490,490</button>
-</button>
+<label for="rate">سعر الدولار</label>
+<div class="chips">
+<button type="button" class="chip" data-rate="1500">1,500</button>
+<button type="button" class="chip" data-rate="1550">1,550</button>
+<button type="button" class="chip" data-rate="1490">1,490</button>
+</div>
+<input id="rate" class="num" inputmode="numeric" autocomplete="off" value="1,500">
+<span class="hint">اختر من الخيارات أو عدّل السعر يدوياً</span>
 </div>
 </div>
-<input id="rate<input id="rate" class="num" inputmode="numeric" autocomplete="" class="num" inputmode="numeric" autocomplete="off" value="off" value="1,501,500">
-<span0">
-<span class="hint"> class="hint">اختر من الخاختر من الخيارات أو عدّليارات أو عدّل السعر يدوياً السعر يدوياً</span></span>
-</div>
-</div>
-</div>
-</div>
-<div class="
 <div class="results">
-<divresults">
 <div class="result good big">
-<span>إجمالي سعر الكلفة بالعراقي class="result good big">
 <span>إجمالي سعر الكلفة بالعراقي</span>
-</span>
-<output id="<output id="totalIQD">totalIQD">0 ألف د.ع</output>
-</div>
-</div>
-</section>
-
-<section class="card">
-<h2>2) بيع الجملة <span class="badge">ربح الكارتون</span></h0 ألف د.ع</output>
+<output id="totalIQD">0 ألف د.ع</output>
 </div>
 </div>
 </section>
 
 <section class="card">
 <h2>2) بيع الجملة <span class="badge">ربح الكارتون</span></h2>
-<div2>
-<div class="grid"> class="grid">
-<div class="
-<div class="field">
-<labelfield">
-<label for="cartons for="cartons">عدد الكرات">عدد الكراتين</label>
-<input id="ين</label>
-<input id="cartons" classcartons" class="num" input="num" inputmode="numeric"mode="numeric" autocomplete="off" autocomplete="off" value="1"> value="1">
-</div>
-</div>
-<div class="
-<div class="field">
-<labelfield">
-<label for="margin"> for="margin">هامش الربهامش الربح</label>ح</label>
-<div class="
-<div class="inp-wrap">
-inp-wrap">
-<input id="margin<input id="margin" class="num" class="num" inputmode="" inputmode="decimal" autocomplete="decimal" autocomplete="off" value="off" value="0">
-<span0">
-<span class="suffix"> class="suffix">%</span>
-%</span>
-</div>
-</div>
-</div>
-</div>
-<div class="field<div class="field">
-<label for">
-<label for="expenseType">="expenseType">مصاريف النقلمصاريف النقل والصيانة وك والصيانة وكراء المندوبراء المندوب</label>
-</label>
-<select id="expense<select id="expenseType">
-<optionType">
-<option value="amount"> value="amount">مبلغ ثابت (مبلغ ثابت (د.ع)د.ع)</option>
-<option</option>
-<option value="percent"> value="percent">نسبة % مننسبة % من الربح</option الربح</option>
-</select>
-</select>
-</div>
-</div>
-<div class>
-<div class="field">
-="field">
-<label for="expense<label for="expenseValue">قيمة المValue">قيمة المصاريف</labelصاريف</label>
-<div class>
-<div class="inp-wrap">="inp-wrap">
-<input id="
-<input id="expenseValue" classexpenseValue" class="num" input="num" inputmode="decimal"mode="decimal" autocomplete="off" autocomplete="off" value="0"> value="0">
-<span
-<span class="suffix" id="expenseSuffix class="suffix" id="expenseSuffix">د.ع">د.ع</span>
-</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="results<div class="results">
-<div class">
-<div class="result"><span="result"><span>سعر الك>سعر الكارتون الواحد (ارتون الواحد (كلفة)</span>كلفة)</span><output id="cost<output id="costPerCarton">PerCarton">0</output>0</output></div>
-<div</div>
-<div class="result yellow class="result yellow"><span>س"><span>سعر بيع الكارتعر بيع الكارتون مع الربحون مع الربح</span><output</span><output id="salePer id="salePerCarton">0Carton">0</output></div>
-<div class</output></div>
-<div class="result"><span="result"><span>إجمالي مبلغ البيع بالجملة>إجمالي مبلغ البيع بالجملة</span><output</span><output id="totalSale">0</output></div>
-<div class="result id="totalSale">0</output></div>
-<div class="result"><span>إ"><span>إجمالي الربح قبلجمالي الربح قبل المصاريف المصاريف</span><output id</span><output id="grossTotal">="grossTotal">0</output>0</output></div>
-<div</div>
-<div class="result"> class="result"><span>المصاريف المحتسبة<span>المصاريف المحتسبة (−)</span (−)</span><output id="><output id="expenseOut">0expenseOut">0</output></div</output></div>
-<div class>
-<div class="result good">="result good"><span>صافي<span>صافي إجمالي الربح من إجمالي الربح من الجملة (ال الجملة (الربح − المربح − المصاريف)</spanصاريف)</span><output id="><output id="netTotal">0netTotal">0</output></div</output></div>
-<div class>
-<div class="result good">="result good"><span>صافي<span>صافي ربح الكارت ربح الكارتون الواحد</spanون الواحد</span><output id="><output id="netPerCartonnetPerCarton">0</output">0</output></div>
-></div>
-</div>
-</div>
-</section>
-
-</section>
-
-<section class="card<section class="card">
-<h2">
-<h2>3) بيع>3) بيع المفرد <span المفرد <span class="badge"> class="badge">كلفة القطعةكلفة القطعة</span></h2>
-</span><div class="grid</h2>
 <div class="grid">
-<div class">
 <div class="field">
-="field">
-<label for="pieces<label for="pieces">عدد القطع">عدد القطع</label>
-</label>
-<input id="pieces<input id="pieces" class="num" class="num" inputmode="" inputmode="numeric" autocomplete="numeric" autocomplete="off" value="off" value="1">
-1">
+<label for="cartons">عدد الكراتين</label>
+<input id="cartons" class="num" inputmode="numeric" autocomplete="off" value="1">
 </div>
-<div</div>
-<div class="field"> class="field">
-<label for="
-<label for="retailMargin">هامش ربحretailMargin">هامش ربح المفرد المفرد</label>
-</label>
+<div class="field">
+<label for="margin">هامش الربح</label>
 <div class="inp-wrap">
-<input id="retailMargin" class="<div class="inp-wrap">
-<input id="retailMargin" class="num" inputmode="decimal" autocompletenum" inputmode="decimal" autocomplete="off" value="off" value="0">
-="0">
-<span class="suffix<span class="suffix">%</span>">%</span>
+<input id="margin" class="num" inputmode="decimal" autocomplete="off" value="0">
+<span class="suffix">%</span>
+</div>
+</div>
+<div class="field">
+<label for="expenseType">مصاريف النقل والصيانة وكراء المندوب</label>
+<select id="expenseType">
+<option value="amount">مبلغ ثابت (د.ع)</option>
+<option value="percent">نسبة % من الربح</option>
+</select>
+</div>
+<div class="field">
+<label for="expenseValue">قيمة المصاريف</label>
+<div class="inp-wrap">
+<input id="expenseValue" class="num" inputmode="decimal" autocomplete="off" value="0">
+<span class="suffix" id="expenseSuffix">د.ع</span>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="
 <div class="results">
-<divresults">
-<div class="result good class="result good big"> big">
-<span>سعر تكلفة القطعة الواحدة</span>
-<output id="costPerPiece">0</output>
+<div class="result"><span>سعر الكارتون الواحد (كلفة)</span><output id="costPerCarton">0</output></div>
+<div class="result yellow"><span>سعر بيع الكارتون مع الربح</span><output id="salePerCarton">0</output></div>
+<div class="result"><span>إجمالي مبلغ البيع بالجملة</span><output id="totalSale">0</output></div>
+<div class="result"><span>إجمالي الربح قبل المصاريف</span><output id="grossTotal">0</output></div>
+<div class="result"><span>المصاريف المحتسبة (−)</span><output id="expenseOut">0</output></div>
+<div class="result good"><span>صافي إجمالي الربح من الجملة (الربح − المصاريف)</span><output id="netTotal">0</output></div>
+<div class="result good"><span>صافي ربح الكارتون الواحد</span><output id="netPerCarton">0</output></div>
+</div>
+</section>
 
+<section class="card">
+<h2>3) بيع المفرد <span class="badge">كلفة القطعة</span></h2>
+<div class="grid">
+<div class="field">
+<label for="pieces">عدد القطع</label>
+<input id="pieces" class="num" inputmode="numeric" autocomplete="off" value="1">
+</div>
+<div class="field">
+<label for="retailMargin">هامش ربح المفرد</label>
+<div class="inp-wrap">
+<input id="retailMargin" class="num" inputmode="decimal" autocomplete="off" value="0">
+<span class="suffix">%</span>
+</div>
+</div>
+</div>
+<div class="results">
+<div class="result good big">
 <span>سعر تكلفة القطعة الواحدة</span>
 <output id="costPerPiece">0</output>
 </div>
-<div</div>
 <div class="result yellow big">
-<span>سعر بيع القطعة مع الربح</span class="result yellow big">
 <span>سعر بيع القطعة مع الربح</span>
->
-<output id="sale<output id="salePerPiece">0PerPiece">0</output>
-</output>
-</div>
-</div>
+<output id="salePerPiece">0</output>
 </div>
 </div>
 </section>
-</section>
-</div>
-
 </div>
 
 <script>
-const<script>
-const $=id=> $=id=>document.getElementById(id);document.getElementById(id);
-const totalCost
-const totalCost=$('totalCost=$('totalCost'),currency=$(''),currency=$('currency'),rate=$currency'),rate=$('rate'),
-('rate'),
-cartons=$('cartons=$('cartons'),margincartons'),margin=$('margin'),=$('margin'),expenseType=$('expenseType=$('expenseType'),
-expenseType'),
-expenseValue=$('expenseValue=$('expenseValue'),piecesexpenseValue'),pieces=$('pieces'),=$('pieces'),retretailMargin=$('ailMargin=$('retailMargin'),retailMargin'),
-expenseSuffix=$
-expenseSuffix=$('expenseSuffix');('expenseSuffix');
+const $=id=>document.getElementById(id);
+const totalCost=$('totalCost'),currency=$('currency'),rate=$('rate'),
+cartons=$('cartons'),margin=$('margin'),expenseType=$('expenseType'),
+expenseValue=$('expenseValue'),pieces=$('pieces'),retailMargin=$('retailMargin'),
+expenseSuffix=$('expenseSuffix');
 
-let unit=
+let unit=1000;
 
-let unit=10001000;
-
-function parse;
-
-function parseNum(el){return parseFloat((el.value||'').replaceNum(el){return parseFloat((el.value||'').replace(/[,،(/[,،٬\٬\s]/g,'s]/g,''))||0}'))||0}
-
-function fmt(n
+function parseNum(el){return parseFloat((el.value||'').replace(/[,،٬\s]/g,''))||0}
 
 function fmt(n){
-  if(!isFinite(n))n=0){
   if(!isFinite(n))n=0;
-  return;
   return n.toLocaleString('en-US',{maximumFractionDigits:2});
 }
 
- n.toLocaleString('en-US',{maximumFractionDigits:2});
-}
-
-function sanitize(el){function sanitize(el){
-  let v
-  let v=el.value.replace=el.value.replace(/[^\d.(/[^\d.]/g,'');]/g,'');
-  const i
-  const i=v.indexOf('.');=v.indexOf('.');
-  if(i
-  if(i!==-1){!==-1){v=v.slice(v=v.slice(0,i+10,i+1)+v.slice(i)+v.slice(i+1).replace+1).replace(/\./g,'')}
-  const p=v.split(/\./g,'('.');
-  let int=p[0].replace(/^0+(?=\d)/,'');')}
+function sanitize(el){
+  let v=el.value.replace(/[^\d.]/g,'');
+  const i=v.indexOf('.');
+  if(i!==-1){v=v.slice(0,i+1)+v.slice(i+1).replace(/\./g,'')}
   const p=v.split('.');
   let int=p[0].replace(/^0+(?=\d)/,'');
-  const dec
-  const dec=p.length>1=p.length>1?'.'+p[1?'.'+p[1]:'';
-  el.value=(int?Number(int).toLocaleString('en-US'):'')+dec;
-}
-
-function unitLabel(){return unit===1000?' ألف د.ع':' د.ع'}
-
-function set(id,val){$(id).textContent=fmt(val/unit)+unitLabel()}
-
-function styleResult(id,val]:'';
+  const dec=p.length>1?'.'+p[1]:'';
   el.value=(int?Number(int).toLocaleString('en-US'):'')+dec;
 }
 
@@ -351,22 +189,9 @@ function unitLabel(){return unit===1000?' ألف د.ع':' د.ع'}
 function set(id,val){$(id).textContent=fmt(val/unit)+unitLabel()}
 
 function styleResult(id,val){
-  const){
   const box=$(id).closest('.result');
   box.classList.toggle('bad',val<0);
-  box.classList box=$(id).closest('.result');
-  box.classList.toggle('bad',val<0);
-  box.classList.toggle('good',.toggle('good',val>=0);
-}
-
-function update(){
-  const total=parseNum(totalCost);
-  const r=parseNum(rate);
-  const totalIQD=currency.value==='USD'?total*r:total;
-  set('totalIQD',totalIQD);
-
-  const c=Math.max(parseNum(cartons),0);
-  const costPerCarton=c>0?totalIQD/c:0;val>=0);
+  box.classList.toggle('good',val>=0);
 }
 
 function update(){
@@ -377,139 +202,71 @@ function update(){
 
   const c=Math.max(parseNum(cartons),0);
   const costPerCarton=c>0?totalIQD/c:0;
-  const m=parseNum(m
-  const margin);
- =parseNum(margin);
-  const grossTotal= const grossTotal=totalIQD*mtotalIQD*m/100/100;
-  const;
-  const grossPerCarton grossPerCarton=c>0?=c>0?grossTotal/c:grossTotal/c:0;
- 0;
-  const salePerCart const salePerCarton=costPeron=costPerCarton+grossCarton+grossPerCarton;PerCarton;
+  const m=parseNum(margin);
+  const grossTotal=totalIQD*m/100;
+  const grossPerCarton=c>0?grossTotal/c:0;
+  const salePerCarton=costPerCarton+grossPerCarton;
   const totalSale=totalIQD+grossTotal;
 
   const ev=Math.max(parseNum(expenseValue),0);
-  const totalSale=totalIQD+grossTotal;
+  const expense=expenseType.value==='percent'?Math.max(grossTotal,0)*ev/100:ev;
+  const netTotal=grossTotal-expense;
+  const netPerCarton=c>0?netTotal/c:0;
 
-  const ev=Math.max(parseNum(expenseValue),0);
-  const expense
-  const expense=expenseType.value=expenseType.value==='percent'?Math==='percent'?Math.max(grossTotal.max(grossTotal,0)*ev,0)*ev/100:ev;
-  const netTotal/100:ev;
-  const netTotal=grossTotal-exp=grossTotal-expense;
- ense;
-  const netPerCart const netPerCarton=c>0on=c>0?netTotal?netTotal/c:0;/c:0;
+  set('costPerCarton',costPerCarton);
+  set('salePerCarton',salePerCarton);
+  set('totalSale',totalSale);
+  set('grossTotal',grossTotal);
+  set('expenseOut',expense);
+  set('netTotal',netTotal);
+  set('netPerCarton',netPerCarton);
+  styleResult('grossTotal',grossTotal);
+  styleResult('netTotal',netTotal);
+  styleResult('netPerCarton',netPerCarton);
 
-  set('
+  expenseSuffix.textContent=expenseType.value==='percent'?'%':'د.ع';
 
-  set('costPerCartoncostPerCarton',costPerCart',costPerCarton);
- on);
-  set('salePer set('salePerCarton',saleCarton',salePerCarton);PerCarton);
-  set('
-  set('totalSale',totaltotalSale',totalSale);
- Sale);
-  set('grossTotal set('grossTotal',grossTotal);',grossTotal);
-  set('
-  set('expenseOut',expenseexpenseOut',expense);
-  set);
-  set('netTotal',('netTotal',netTotal);
-netTotal);
-  set('net  set('netPerCarton',PerCarton',netPerCartonnetPerCarton);
-  style);
-  styleResult('grossTotalResult('grossTotal',grossTotal);',grossTotal);
-  styleResult
-  styleResult('netTotal',('netTotal',netTotal);
-netTotal);
-  styleResult('  styleResult('netPerCartonnetPerCarton',netPerCart',netPerCarton);
+  const p=Math.max(parseNum(pieces),0);
+  const costPerPieceVal=p>0?totalIQD/p:0;
+  set('costPerPiece',costPerPieceVal);
 
- on);
+  const rm=parseNum(retailMargin);
+  set('salePerPiece',costPerPieceVal*(1+rm/100));
 
-  expenseSuffix expenseSuffix.textContent=expenseType.textContent=expenseType.value==='percent'.value==='percent'?'%':'د?'%':'د.ع';
-
-.ع';
-
-  const p=Math  const p=Math.max(parse.max(parseNum(pieces),0);
-  const costPerPieceVal=p>0?totalIQDNum(pieces),0);
-  const costPerPieceVal=p>0?totalIQD/p:0;/p:0;
-  set('
-  set('costPerPiece',costPerPiece',costPerPieceValcostPerPieceVal);
-
-);
-
-  const rm=  const rm=parseNum(retailparseNum(retailMargin);
- Margin);
-  set('salePer set('salePerPiece',costPerPiece',costPerPieceVal*(1PieceVal*(1+rm/1+rm/100));
-
-00));
-
-  document.querySelectorAll('.  document.querySelectorAll('.chip[data-rate]').chip[data-rate]').forEach(ch=>{forEach(ch=>{
-    ch.classList
-    ch.classList.toggle('active',.toggle('active',Number(ch.dataset.rateNumber(ch.dataset.rate)===r);)===r);
-  });
-
+  document.querySelectorAll('.chip[data-rate]').forEach(ch=>{
+    ch.classList.toggle('active',Number(ch.dataset.rate)===r);
   });
 }
 
-document.querySelectorAll}
-
-document.querySelectorAll('input.num').('input.num').forEach(inp=>{forEach(inp=>{
-  inp.addEventListener
-  inp.addEventListener('input',()=>('input',()=>{sanitize(inp);{sanitize(inp);update()});
-update()});
+document.querySelectorAll('input.num').forEach(inp=>{
+  inp.addEventListener('input',()=>{sanitize(inp);update()});
 });
 
-document.querySelectorAll});
-
-document.querySelectorAll('.chip[data-rate('.chip[data-rate]').forEach(ch=>{
-  ch]').forEach(ch=>{
-  ch.addEventListener('click',.addEventListener('click',()=>{
-   ()=>{
-    rate.value=Number rate.value=Number(ch.dataset.rate).(ch.dataset.rate).toLocaleString('entoLocaleString('en-US');
-   -US');
-    update();
-  update();
-  });
-});
-
-document.querySelectorAll('.chip });
-});
-
-document.querySelectorAll('.chip[data-unit]').[data-unit]').forEach(ch=>{forEach(ch=>{
-  ch.addEventListener
-  ch.addEventListener('click',()=>('click',()=>{
-    unit{
-    unit=Number(ch.dataset=Number(ch.dataset.unit)||1;.unit)||1;
-    document.querySelectorAll
-    document.querySelectorAll('.chip[data-unit('.chip[data-unit]').forEach(x=>x.classList.toggle('active',x===ch));
-]').forEach(x=>x.classList.toggle('active',x===ch));
-    update();
+document.querySelectorAll('.chip[data-rate]').forEach(ch=>{
+  ch.addEventListener('click',()=>{
+    rate.value=Number(ch.dataset.rate).toLocaleString('en-US');
     update();
   });
-});  });
 });
 
-document.addEventListener('pointerdown',e
+document.querySelectorAll('.chip[data-unit]').forEach(ch=>{
+  ch.addEventListener('click',()=>{
+    unit=Number(ch.dataset.unit)||1;
+    document.querySelectorAll('.chip[data-unit]').forEach(x=>x.classList.toggle('active',x===ch));
+    update();
+  });
+});
 
 document.addEventListener('pointerdown',e=>{
- =>{
-  if(!e.target if(!e.target.closest('input,.closest('input,select')){
-    const a=documentselect')){
+  if(!e.target.closest('input,select')){
     const a=document.activeElement;
-.activeElement;
-    if(a&&    if(a&&a.tagName==='INPUTa.tagName==='INPUT')a.blur();')a.blur();
-  }
-
+    if(a&&a.tagName==='INPUT')a.blur();
   }
 });
 
-['});
-
-['currency','expenseTypecurrency','expenseType'].forEach(id=>'].forEach(id=>$(id).addEventListener$(id).addEventListener('change',update('change',update));
-
-update();));
+['currency','expenseType'].forEach(id=>$(id).addEventListener('change',update));
 
 update();
 </script>
-</script>
 </body>
-</body>
-</html>
 </html>
