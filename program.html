@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>حسابي لربح الجملة والمفرد</title>
+  <style>
+    :root {
+      --bg: #f3f6fb;
+      --card: #ffffff;
+      --text: #182234;
+      --muted: #64748b;
+      --line: #e4e9f2;
+      --green: #0f766e;
+      --green-bg: #ecfdf5;
+      --blue: #1d4ed8;
+      --shadow: 0 10px 30px rgba(15, 23, 42, .08);
+      --danger: #b91c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background: linear-gradient(180deg, #f8fbff, #eef3f9);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .sub {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin: 0 0 16px;
+      font-size: 20px;
+      color: #111827;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #334155;
+      font-weight: 700;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 16px;
+      background: #fff;
+      color: #0f172a;
+      outline: none;
+      transition: .2s;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .result {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .result span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .result output {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .result.good {
+      background: var(--green-bg);
+      border-color: #99f6e4;
+    }
+
+    .result.good output {
+      color: var(--green);
+    }
+
+    .result.bad {
+      background: #fef2f2;
+      border-color: #fecaca;
+    }
+
+    .result.bad output {
+      color: var(--danger);
+    }
+
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-ghost {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 12px;
+      font-weight: 800;
+      margin-inline-start: 8px;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .wrap {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <h1>حسابي لربح الجملة والمفرد</h1>
+      <div class="sub">
+        النظام يحسب لك تكلفة القطعة الواحدة بالمفرد، وصافي ربح الجملة وربح الكارتون الواحد تلقائياً.
+        سعر الصرف قابل للتعديل، مع محاولة جلب السعر تلقائياً.
+      </div>
+    </header>
+
+    <!-- سعر الصرف -->
+    <section class="card">
+      <h2>سعر صرف الدولار</h2>
+
+      <div class="grid">
+        <div class="field">
+          <label for="exchangeRate">1 دولار أمريكي = ؟ دينار عراقي</label>
+          <input id="exchangeRate" type="number" min="0" step="any" value="1500" />
+        </div>
+
+        <div class="field">
+          <label>خيارات السعر</label>
+          <div class="row">
+            <button class="btn btn-primary" id="fetchRateBtn" type="button">تحديث تلقائي</button>
+            <button class="btn btn-ghost" id="defaultRateBtn" type="button">افتراضي 1500</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="rateStatus" class="status">
+        السعر الافتراضي: 1500 د.ع. يمكنك تغييره يدوياً.
+      </div>
+    </section>
+
+    <!-- بيع المفرد -->
+    <section class="card">
+      <h2>
+        1) تكلفة القطعة الواحدة
+        <span class="badge">بيع بالمفرد</span>
+      </h2>
+
+      <div class="grid">
+        <div class="field">
+          <label for="retailTotal">سعر التكلفة الإجمالي</label>
+          <input id="retailTotal" type="number" min="0" step="any" placeholder="مثال: 1200" />
+        </div>
+
+        <div class="field">
+          <label for="retailCurrency">العملة</label>
+          <select id="retailCurrency">
+            <option value="USD" selected>دولار</option>
+            <option value="IQD">عراقي</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="retailPieces">عدد القطع</label>
+          <input id="retailPieces" type="number" min="1" step="1" value="1" />
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="result">
+          <span>إجمالي التكلفة بالدينار العراقي</span>
+          <output id="retailTotalIqd">0 د.ع</output>
+        </div>
+
+        <div class="result good">
+          <span>سعر تكلفة القطعة الواحدة</span>
+          <output id="retailPerPiece">0 د.ع</output>
+        </div>
+      </div>
+    </section>
+
+    <!-- بيع الجملة -->
+    <section class="card">
+      <h2>
+        2) ربح الكارتون الواحد
+        <span class="badge">بيع بالجملة</span>
+      </h2>
+
+      <div class="grid">
+        <div class="field">
+          <label for="wholesaleCost">سعر التكلفة الإجمالي</label>
+          <input id="wholesaleCost" type="number" min="0" step="any" placeholder="مثال: 5000" />
+        </div>
+
+        <div class="field">
+          <label for="wholesaleCostCurrency">عملة التكلفة</label>
+          <select id="wholesaleCostCurrency">
+            <option value="USD" selected>دولار</option>
+            <option value="IQD">عراقي</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="wholesaleSale">سعر بيع الكارتون الواحد</label>
+          <input id="wholesaleSale" type="number" min="0" step="any" placeholder="مثال: 25000" />
+        </div>
+
+        <div class="field">
+          <label for="wholesaleSaleCurrency">عملة البيع</label>
+          <select id="wholesaleSaleCurrency">
+            <option value="IQD" selected>عراقي</option>
+            <option value="USD">دولار</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="cartons">عدد الكراتين</label>
+          <input id="cartons" type="number" min="1" step="1" value="1" />
+        </div>
+
+        <div class="field">
+          <label for="expenseType">مصاريف النقل والصيانة</label>
+          <select id="expenseType">
+            <option value="amount" selected>مبلغ ثابت (د.ع)</option>
+            <option value="percent">نسبة % من الربح</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="expenseValue">قيمة المصاريف</label>
+          <input id="expenseValue" type="number" min="0" step="any" value="0" />
+        </div>
+      </div>
+
+      <div class="results">
+        <div class="result">
+          <span>إجمالي التكلفة بالدينار</span>
+          <output id="wholesaleCostIqd">0 د.ع</output>
+        </div>
+
+        <div class="result">
+          <span>تكلفة الكارتون الواحد</span>
+          <output id="costPerCarton">0 د.ع</output>
+        </div>
+
+        <div class="result">
+          <span>إجمالي البيع بالدينار</span>
+          <output id="wholesaleSaleIqd">0 د.ع</output>
+        </div>
+
+        <div class="result">
+          <span>الربح قبل المصاريف</span>
+          <output id="grossProfit">0 د.ع</output>
+        </div>
+
+        <div class="result">
+          <span>المصاريف المحتسبة</span>
+          <output id="expenseAmount">0 د.ع</output>
+        </div>
+
+        <div class="result good">
+          <span>صافي الربح بعد المصاريف</span>
+          <output id="netProfit">0 د.ع</output>
+        </div>
+
+        <div class="result good">
+          <span>صافي ربح الكارتون الواحد</span>
+          <output id="profitPerCarton">0 د.ع</output>
+        </div>
+      </div>
+
+      <div class="note">
+        ملاحظة: إذا اخترت المصاريف كنسبة %، يتم خصم النسبة من الربح قبل المصاريف.
+        وإذا اخترت مبلغ ثابت، يتم خصمه مباشرة بالدينار العراقي.
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const el = {
+      exchangeRate: document.getElementById("exchangeRate"),
+      rateStatus: document.getElementById("rateStatus"),
+      fetchRateBtn: document.getElementById("fetchRateBtn"),
+      defaultRateBtn: document.getElementById("defaultRateBtn"),
+
+      retailTotal: document.getElementById("retailTotal"),
+      retailCurrency: document.getElementById("retailCurrency"),
+      retailPieces: document.getElementById("retailPieces"),
+      retailTotalIqd: document.getElementById("retailTotalIqd"),
+      retailPerPiece: document.getElementById("retailPerPiece"),
+
+      wholesaleCost: document.getElementById("wholesaleCost"),
+      wholesaleCostCurrency: document.getElementById("wholesaleCostCurrency"),
+      wholesaleSale: document.getElementById("wholesaleSale"),
+      wholesaleSaleCurrency: document.getElementById("wholesaleSaleCurrency"),
+      cartons: document.getElementById("cartons"),
+      expenseType: document.getElementById("expenseType"),
+      expenseValue: document.getElementById("expenseValue"),
+
+      wholesaleCostIqd: document.getElementById("wholesaleCostIqd"),
+      costPerCarton: document.getElementById("costPerCarton"),
+      wholesaleSaleIqd: document.getElementById("wholesaleSaleIqd"),
+      grossProfit: document.getElementById("grossProfit"),
+      expenseAmount: document.getElementById("expenseAmount"),
+      netProfit: document.getElementById("netProfit"),
+      profitPerCarton: document.getElementById("profitPerCarton")
+    };
+
+    function num(value) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function fmt(n) {
+      const safe = Number.isFinite(n) ? n : 0;
+
+      try {
+        return new Intl.NumberFormat("ar-IQ-u-nu-latn", {
+          maximumFractionDigits: 2
+        }).format(safe);
+      } catch {
+        return new Intl.NumberFormat("en-US", {
+          maximumFractionDigits: 2
+        }).format(safe);
+      }
+    }
+
+    function money(n) {
+      return fmt(n) + " د.ع";
+    }
+
+    function setResultStyle(outputElement, value) {
+      const box = outputElement.closest(".result");
+      if (!box) return;
+
+      box.classList.toggle("bad", value < 0);
+      box.classList.toggle("good", value >= 0);
+    }
+
+    function updateRetail() {
+      const totalCost = num(el.retailTotal.value);
+      const rate = num(el.exchangeRate.value);
+      const pieces = Math.max(num(el.retailPieces.value), 0);
+
+      const totalCostIQD = el.retailCurrency.value === "USD"
+        ? totalCost * rate
+        : totalCost;
+
+      const costPerPiece = pieces > 0 ? totalCostIQD / pieces : 0;
+
+      el.retailTotalIqd.textContent = money(totalCostIQD);
+      el.retailPerPiece.textContent = money(costPerPiece);
+    }
+
+    function updateWholesale() {
+      const rate = num(el.exchangeRate.value);
+
+      const totalCost = num(el.wholesaleCost.value);
+      const salePerCarton = num(el.wholesaleSale.value);
+      const cartons = Math.max(num(el.cartons.value), 0);
+      const expenseValue = Math.max(num(el.expenseValue.value), 0);
+
+      const totalCostIQD = el.wholesaleCostCurrency.value === "USD"
+        ? totalCost * rate
+        : totalCost;
+
+      const costPerCarton = cartons > 0
+        ? totalCostIQD / cartons
+        : 0;
+
+      const salePerCartonIQD = el.wholesaleSaleCurrency.value === "USD"
+        ? salePerCarton * rate
+        : salePerCarton;
+
+      const totalSaleIQD = salePerCartonIQD * cartons;
+
+      const grossProfit = totalSaleIQD - totalCostIQD;
+
+      let expenses = 0;
+
+      if (el.expenseType.value === "percent") {
+        expenses = Math.max(grossProfit, 0) * (expenseValue / 100);
+      } else {
+        expenses = expenseValue;
+      }
+
+      const netProfit = grossProfit - expenses;
+
+      const netProfitPerCarton = cartons > 0
+        ? netProfit / cartons
+        : 0;
+
+      el.wholesaleCostIqd.textContent = money(totalCostIQD);
+      el.costPerCarton.textContent = money(costPerCarton);
+      el.wholesaleSaleIqd.textContent = money(totalSaleIQD);
+      el.grossProfit.textContent = money(grossProfit);
+      el.expenseAmount.textContent = money(expenses);
+      el.netProfit.textContent = money(netProfit);
+      el.profitPerCarton.textContent = money(netProfitPerCarton);
+
+      setResultStyle(el.grossProfit, grossProfit);
+      setResultStyle(el.netProfit, netProfit);
+      setResultStyle(el.profitPerCarton, netProfitPerCarton);
+    }
+
+    function updateAll() {
+      updateRetail();
+      updateWholesale();
+    }
+
+    async function fetchExchangeRate() {
+      el.fetchRateBtn.disabled = true;
+      el.rateStatus.textContent = "جاري محاولة جلب سعر الصرف...";
+
+      const sources = [
+        {
+          url: "https://open.er-api.com/v6/latest/USD",
+          extract: (data) => data?.rates?.IQD
+        },
+        {
+          url: "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.min.json",
+          extract: (data) => data?.usd?.iqd
+        }
+      ];
+
+      try {
+        for (const source of sources) {
+          try {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), 8000);
+
+            const response = await fetch(source.url, {
+              signal: controller.signal
+            });
+
+            clearTimeout(timer);
+
+            if (!response.ok) continue;
+
+            const data = await response.json();
+            const rate = source.extract(data);
+
+            if (Number.isFinite(rate) && rate > 0) {
+              el.exchangeRate.value = Number(rate).toFixed(2);
+              el.rateStatus.textContent =
+                "تم تحديث السعر تلقائياً: 1 دولار = " + fmt(rate) + " د.ع";
+              return;
+            }
+          } catch {
+            // جرب المصدر التالي
+          }
+        }
+
+        el.rateStatus.textContent =
+          "تعذر جلب السعر تلقائياً. السعر الحالي/الافتراضي موجود، ويمكنك تعديله يدوياً.";
+      } finally {
+        el.fetchRateBtn.disabled = false;
+        updateAll();
+      }
+    }
+
+    el.fetchRateBtn.addEventListener("click", fetchExchangeRate);
+
+    el.defaultRateBtn.addEventListener("click", function () {
+      el.exchangeRate.value = 1500;
+      el.rateStatus.textContent = "تم ضبط السعر على 1500 د.ع.";
+      updateAll();
+    });
+
+    document.addEventListener("input", updateAll);
+    document.addEventListener("change", updateAll);
+
+    window.addEventListener("DOMContentLoaded", function () {
+      updateAll();
+      fetchExchangeRate();
+    });
+  </script>
+</body>
+</html>
