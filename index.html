@@ -2,271 +2,163 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>نظام الحسابي لمعرفة التكاليف والأرباح</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حاسبة أرباح الأصباغ</title>
 <style>
-:root{--card:#fff;--text:#182234;--muted:#64748b;--line:#e4e9f2;--green:#0f766e;--green-bg:#ecfdf5;--danger:#b91c1c;--yellow-bg:#fffbeb;--yellow-line:#fde68a;--yellow-text:#b45309;--shadow:0 10px 30px rgba(15,23,42,.08)}
-*{box-sizing:border-box}
-body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#f8fbff,#eef3f9);color:var(--text);min-height:100vh}
-.wrap{max-width:1100px;margin:0 auto;padding:20px}
-header{margin-bottom:14px}
-h1{margin:0 0 6px;font-size:26px}
-.sub{color:var(--muted);line-height:1.8}
-.unitbar{display:flex;align-items:center;gap:10px;margin:0 0 16px;font-weight:800;color:#334155;flex-wrap:wrap}
-.unitbar .chips{margin-bottom:0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:18px;margin-bottom:18px}
-.card h2{margin:0 0 14px;font-size:19px}
-.badge{display:inline-block;padding:4px 10px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-size:12px;font-weight:800;margin-inline-start:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
-.field label{display:block;margin-bottom:6px;font-size:14px;color:#334155;font-weight:700}
-input,select{width:100%;padding:12px 14px;border:1px solid #cbd5e1;border-radius:12px;font-size:16px;background:#fff;color:#0f172a;outline:none;transition:.2s}
-input:focus,select:focus{border-color:#2563eb;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
-.hint{font-size:12px;color:var(--muted);display:block;margin-top:6px}
-.inp-wrap{position:relative}
-.inp-wrap input{padding-inline-end:58px}
-.suffix{position:absolute;inset-inline-end:12px;top:50%;transform:translateY(-50%);color:#334155;background:#f1f5f9;border:1px solid var(--line);border-radius:8px;padding:3px 9px;font-size:13px;font-weight:800;pointer-events:none}
-.chips{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-.chip{border:1px solid #cbd5e1;background:#f1f5f9;border-radius:999px;padding:8px 16px;font-weight:800;cursor:pointer;font-size:14px}
-.chip.active{background:#1d4ed8;color:#fff;border-color:#1d4ed8}
-.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:16px}
-.result{background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:14px}
-.result span{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-.result output{font-size:20px;font-weight:800;color:#0f172a;word-break:break-all}
-.result.big output{font-size:26px}
-.result.good{background:var(--green-bg);border-color:#99f6e4}
-.result.good output{color:var(--green)}
-.result.bad{background:#fef2f2;border-color:#fecaca}
-.result.bad output{color:var(--danger)}
-.result.yellow{background:var(--yellow-bg);border-color:var(--yellow-line)}
-.result.yellow output{color:var(--yellow-text)}
-@media(max-width:640px){h1{font-size:22px}.wrap{padding:14px}}
+:root{--bg1:#f0f5ff;--bg2:#e8eef7;--card:#fff;--line:#e2e8f0;--text:#0f172a;--muted:#64748b;--blue:#1d4ed8;--blue-bg:#f5f9ff;--blue-line:#bfdbfe;--yel:#b45309;--yel-bg:#fffbeb;--yel-line:#fde68a;--grn:#0f766e;--grn-bg:#ecfdf5;--grn-line:#99f6e4;--red:#b91c1c;--red-bg:#fef2f2;--red-line:#fecaca;--shadow:0 6px 18px rgba(15,23,42,.07)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,var(--bg1),var(--bg2));height:100dvh;overflow:hidden;display:flex;flex-direction:column}
+.wrap{width:100%;max-width:520px;margin:0 auto;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:9px;flex:1;min-height:0}
+header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tt h1{margin:0;font-size:17px}
+.tt p{margin:2px 0 0;font-size:10.5px;color:var(--muted)}
+.gear{border:0;width:38px;height:38px;border-radius:12px;background:var(--blue);color:#fff;font-size:17px;cursor:pointer;box-shadow:var(--shadow)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:10px}
+.inputs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.f label{display:block;font-size:9.8px;font-weight:700;color:var(--muted);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.f input{width:100%;padding:9px 6px;border-radius:10px;border:1.5px solid var(--blue-line);background:var(--blue-bg);font-size:15px;font-weight:700;color:var(--text);outline:none;text-align:center}
+.f.y input{border-color:var(--yel-line);background:var(--yel-bg)}
+.f.full{grid-column:1/-1}
+.f.full input{text-align:right;font-weight:600}
+.legend{display:flex;gap:10px;justify-content:center;font-size:9.5px;color:var(--muted);margin-top:8px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:4px;vertical-align:middle}
+.results{flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:7px;min-height:0}
+.t{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 4px;display:flex;flex-direction:column;justify-content:center;gap:3px;text-align:center;min-height:0}
+.t .lb{font-size:9.3px;color:var(--muted);font-weight:700;line-height:1.3}
+.t .vl{font-size:15.5px;font-weight:800;word-break:break-all;line-height:1.1}
+.t small{font-size:8.8px;color:var(--muted)}
+.t.y{background:var(--yel-bg);border-color:var(--yel-line)}.t.y .vl{color:var(--yel)}
+.t.g{background:var(--grn-bg);border-color:var(--grn-line)}.t.g .vl{color:var(--grn)}
+.t.r{background:var(--red-bg);border-color:var(--red-line)}.t.r .vl{color:var(--red)}
+.bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:9px 12px;font-size:10.5px;font-weight:700;color:var(--muted);cursor:pointer}
+.bar b{color:var(--text);font-size:13px}
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:flex-end;justify-content:center;z-index:50}
+.overlay.open{display:flex}
+.sheet{background:#fff;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom));width:100%;max-width:520px;display:flex;flex-direction:column;gap:10px}
+.sheet h3{margin:0;font-size:15px}
+.sheet label{font-size:11px;font-weight:700;color:var(--muted)}
+.sheet input{width:100%;padding:11px;border-radius:12px;border:1.5px solid var(--line);font-size:16px;font-weight:700;text-align:center;outline:none}
+.sheet button{border:0;border-radius:12px;background:var(--blue);color:#fff;padding:12px;font-size:15px;font-weight:800;cursor:pointer}
+@media(max-height:700px){body{overflow:auto}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
 <header>
-<h1>نظام الحسابي لمعرفة التكاليف والأرباح</h1>
-<div class="sub">أدخل التكلفة الإجمالية مرة واحدة، وجميع عمليات التكاليف والأرباح (جملة ومفرد) تتم تلقائياً.</div>
+<div class="tt">
+<h1>حاسبة أرباح الأصباغ</h1>
+<p>الشراء بالدولار والبيع بالدينار العراقي</p>
+</div>
+<button class="gear" id="gearBtn" type="button">⚙</button>
 </header>
 
-<div class="unitbar">
-<span>عرض النتائج:</span>
-<div class="chips">
-<button type="button" class="chip unit" data-unit="1">دينار</button>
-<button type="button" class="chip unit active" data-unit="1000">بالآلاف</button>
-</div>
-</div>
-
 <section class="card">
-<h2>1) تحديد التكلفة الإجمالية</h2>
-<div class="grid">
-<div class="field">
-<label for="totalCost">سعر التكلفة الإجمالي</label>
-<input id="totalCost" class="num" inputmode="decimal" autocomplete="off" placeholder="مثال: 5,000">
+<div class="inputs">
+<div class="f full"><label>اسم الصنف (اختياري)</label><input id="itemName" placeholder="مثال: دهان بلاستيك - غالون"></div>
+<div class="f"><label>سعر الشراء ($)</label><input id="buy" class="num" inputmode="decimal" value="3"></div>
+<div class="f"><label>شحن/جمارك ($)</label><input id="extra" class="num" inputmode="decimal" value="0.5"></div>
+<div class="f y"><label>سعر الصرف</label><input id="rate" class="num" inputmode="numeric" value="1,450"></div>
+<div class="f y"><label>هامش أمان %</label><input id="safety" class="num" inputmode="decimal" value="4"></div>
+<div class="f"><label>ربح المفرد %</label><input id="rRetail" class="num" inputmode="decimal" value="40"></div>
+<div class="f"><label>ربح الجملة %</label><input id="rWhole" class="num" inputmode="decimal" value="15"></div>
 </div>
-<div class="field">
-<label for="currency">العملة</label>
-<select id="currency">
-<option value="USD">دولار</option>
-<option value="IQD">عراقي</option>
-</select>
-</div>
-<div class="field">
-<label for="rate">سعر الدولار</label>
-<div class="chips">
-<button type="button" class="chip" data-rate="1450">1,450</button>
-<button type="button" class="chip" data-rate="1500">1,500</button>
-<button type="button" class="chip" data-rate="1510">1,510</button>
-<button type="button" class="chip" data-rate="1530">1,530</button>
-<button type="button" class="chip" data-rate="1550">1,550</button>
-</div>
-<input id="rate" class="num" inputmode="numeric" autocomplete="off" value="1,500">
-<span class="hint">اختر من الاقتراحات أو عدّل السعر يدوياً</span>
-</div>
-</div>
-<div class="results">
-<div class="result good big">
-<span>إجمالي التكلفة بالدينار العراقي</span>
-<output id="totalIQD">0 ألف د.ع</output>
-</div>
+<div class="legend">
+<span><i class="dot" style="background:#93c5fd"></i>يُعبّى يدوياً</span>
+<span><i class="dot" style="background:#fcd34d"></i>افتراضات</span>
+<span><i class="dot" style="background:#cbd5e1"></i>تلقائي</span>
 </div>
 </section>
 
-<section class="card">
-<h2>2) بيع الجملة <span class="badge">ربح الكارتون</span></h2>
-<div class="grid">
-<div class="field">
-<label for="cartons">عدد الكراتين</label>
-<input id="cartons" class="num" inputmode="numeric" autocomplete="off" value="1">
-</div>
-<div class="field">
-<label for="margin">هامش الربح</label>
-<div class="inp-wrap">
-<input id="margin" class="num" inputmode="decimal" autocomplete="off" value="0">
-<span class="suffix">%</span>
-</div>
-</div>
-<div class="field">
-<label for="expenseType">مصاريف النقل والصيانة وكروة المندوب</label>
-<select id="expenseType">
-<option value="amount">مبلغ ثابت (د.ع)</option>
-<option value="percent">نسبة % من الربح</option>
-</select>
-</div>
-<div class="field">
-<label for="expenseValue">قيمة المصاريف</label>
-<div class="inp-wrap">
-<input id="expenseValue" class="num" inputmode="decimal" autocomplete="off" value="0">
-<span class="suffix" id="expenseSuffix">د.ع</span>
-</div>
-</div>
-</div>
-<div class="results">
-<div class="result"><span>تكلفة الكارتون الواحد</span><output id="costPerCarton">0</output></div>
-<div class="result yellow"><span>سعر بيع الكارتون الواحد مع الربح</span><output id="salePerCarton">0</output></div>
-<div class="result"><span>إجمالي البيع بالجملة (كل الكراتين)</span><output id="totalSale">0</output></div>
-<div class="result"><span>الربح الإجمالي من الجملة قبل المصاريف</span><output id="grossTotal">0</output></div>
-<div class="result"><span>المصاريف (نقل، صيانة، كروة المندوب)</span><output id="expenseOut">0</output></div>
-<div class="result good"><span>صافي الربح من الجملة بعد المصاريف</span><output id="netTotal">0</output></div>
-<div class="result good"><span>صافي ربح الكارتون الواحد بعد المصاريف</span><output id="netPerCarton">0</output></div>
-</div>
+<section class="results">
+<div class="t"><span class="lb">إجمالي التكلفة</span><span class="vl" id="totalUSD">0</span><small>دولار</small></div>
+<div class="t"><span class="lb">الصرف بعد هامش الأمان</span><span class="vl" id="rateAdj">0</span><small>دينار/دولار</small></div>
+<div class="t"><span class="lb">التكلفة النهائية</span><span class="vl" id="costIQD">0</span><small>دينار</small></div>
+<div class="t y"><span class="lb">سعر البيع بالمفرد</span><span class="vl" id="saleR">0</span><small>دينار</small></div>
+<div class="t y"><span class="lb">سعر البيع بالجملة</span><span class="vl" id="saleW">0</span><small>دينار</small></div>
+<div class="t"><span class="lb">ربح القطعة الإجمالي (مفرد)</span><span class="vl" id="grossR">0</span><small>دينار</small></div>
+<div class="t"><span class="lb">ربح القطعة الإجمالي (جملة)</span><span class="vl" id="grossW">0</span><small>دينار</small></div>
+<div class="t g"><span class="lb">الربح الصافي للقطعة (مفرد)</span><span class="vl" id="netR">0</span><small>بعد المصاريف</small></div>
+<div class="t g"><span class="lb">الربح الصافي للقطعة (جملة)</span><span class="vl" id="netW">0</span><small>بعد المصاريف</small></div>
 </section>
 
-<section class="card">
-<h2>3) بيع المفرد <span class="badge">كلفة القطعة</span></h2>
-<div class="grid">
-<div class="field">
-<label for="pieces">عدد القطع</label>
-<input id="pieces" class="num" inputmode="numeric" autocomplete="off" value="1">
+<div class="bar" id="barBtn">
+<span>نصيب القطعة من المصاريف التشغيلية: <b id="share">0</b> د.ع</span>
+<span>✎ تعديل</span>
 </div>
-<div class="field">
-<label for="retailMargin">هامش ربح المفرد</label>
-<div class="inp-wrap">
-<input id="retailMargin" class="num" inputmode="decimal" autocomplete="off" value="0">
-<span class="suffix">%</span>
+
 </div>
+
+<div class="overlay" id="overlay">
+<div class="sheet">
+<h3>المصاريف التشغيلية الشهرية</h3>
+<label>مصاريف التشغيل (إيجار + رواتب + كهرباء) - دينار</label>
+<input id="mExp" class="num" inputmode="numeric" value="3,000,000">
+<label>عدد القطع المباعة شهرياً (مفرد + جملة)</label>
+<input id="mPieces" class="num" inputmode="numeric" value="2,000">
+<button id="closeSheet" type="button">تم</button>
 </div>
-</div>
-<div class="results">
-<div class="result good big">
-<span>تكلفة القطعة الواحدة</span>
-<output id="costPerPiece">0</output>
-</div>
-<div class="result yellow big">
-<span>سعر بيع القطعة الواحدة مع الربح</span>
-<output id="salePerPiece">0</output>
-</div>
-</div>
-</section>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
-const totalCost=$('totalCost'),currency=$('currency'),rate=$('rate'),
-cartons=$('cartons'),margin=$('margin'),expenseType=$('expenseType'),
-expenseValue=$('expenseValue'),pieces=$('pieces'),retailMargin=$('retailMargin'),
-expenseSuffix=$('expenseSuffix');
+const buy=$('buy'),extra=$('extra'),rate=$('rate'),safety=$('safety'),
+rRetail=$('rRetail'),rWhole=$('rWhole'),mExp=$('mExp'),mPieces=$('mPieces');
 
-let unit=1000;
-
-function parseNum(el){return parseFloat((el.value||'').replace(/[,،٬\s]/g,''))||0}
-
-function fmt(n){
-  if(!isFinite(n))n=0;
-  return n.toLocaleString('en-US',{maximumFractionDigits:2});
-}
+function p(el){return parseFloat((el.value||'').replace(/[,،٬\s]/g,''))||0}
+function fmtI(n){if(!isFinite(n))n=0;return Math.round(n).toLocaleString('en-US')}
+function fmtD(n){if(!isFinite(n))n=0;return n.toLocaleString('en-US',{maximumFractionDigits:2})}
 
 function sanitize(el){
   let v=el.value.replace(/[^\d.]/g,'');
   const i=v.indexOf('.');
   if(i!==-1){v=v.slice(0,i+1)+v.slice(i+1).replace(/\./g,'')}
-  const p=v.split('.');
-  let int=p[0].replace(/^0+(?=\d)/,'');
-  const dec=p.length>1?'.'+p[1]:'';
+  const q=v.split('.');
+  let int=q[0].replace(/^0+(?=\d)/,'');
+  const dec=q.length>1?'.'+q[1]:'';
   el.value=(int?Number(int).toLocaleString('en-US'):'')+dec;
 }
 
-function unitLabel(){return unit===1000?' ألف د.ع':' د.ع'}
-
-function set(id,val){$(id).textContent=fmt(val/unit)+unitLabel()}
-
-function styleResult(id,val){
-  const box=$(id).closest('.result');
-  box.classList.toggle('bad',val<0);
-  box.classList.toggle('good',val>=0);
+function paint(id,v){
+  const t=$(id).closest('.t');
+  t.classList.toggle('g',v>=0);
+  t.classList.toggle('r',v<0);
 }
 
 function update(){
-  const total=parseNum(totalCost);
-  const r=parseNum(rate);
-  const totalIQD=currency.value==='USD'?total*r:total;
-  set('totalIQD',totalIQD);
+  const totalUSD=p(buy)+p(extra);
+  const rateAdj=p(rate)*(1+p(safety)/100);
+  const cost=totalUSD*rateAdj;
+  const saleR=cost*(1+p(rRetail)/100);
+  const saleW=cost*(1+p(rWhole)/100);
+  const gR=saleR-cost;
+  const gW=saleW-cost;
+  const share=p(mPieces)>0?p(mExp)/p(mPieces):0;
+  const nR=gR-share;
+  const nW=gW-share;
 
-  const c=Math.max(parseNum(cartons),0);
-  const costPerCarton=c>0?totalIQD/c:0;
-  const m=parseNum(margin);
-  const grossTotal=totalIQD*m/100;
-  const grossPerCarton=c>0?grossTotal/c:0;
-  const salePerCarton=costPerCarton+grossPerCarton;
-  const totalSale=totalIQD+grossTotal;
-
-  const ev=Math.max(parseNum(expenseValue),0);
-  const expense=expenseType.value==='percent'?Math.max(grossTotal,0)*ev/100:ev;
-  const netTotal=grossTotal-expense;
-  const netPerCarton=c>0?netTotal/c:0;
-
-  set('costPerCarton',costPerCarton);
-  set('salePerCarton',salePerCarton);
-  set('totalSale',totalSale);
-  set('grossTotal',grossTotal);
-  set('expenseOut',expense);
-  set('netTotal',netTotal);
-  set('netPerCarton',netPerCarton);
-  styleResult('grossTotal',grossTotal);
-  styleResult('netTotal',netTotal);
-  styleResult('netPerCarton',netPerCarton);
-
-  expenseSuffix.textContent=expenseType.value==='percent'?'%':'د.ع';
-
-  const p=Math.max(parseNum(pieces),0);
-  const costPerPieceVal=p>0?totalIQD/p:0;
-  set('costPerPiece',costPerPieceVal);
-
-  const rm=parseNum(retailMargin);
-  set('salePerPiece',costPerPieceVal*(1+rm/100));
-
-  document.querySelectorAll('.chip[data-rate]').forEach(ch=>{
-    ch.classList.toggle('active',Number(ch.dataset.rate)===r);
-  });
+  $('totalUSD').textContent=fmtD(totalUSD);
+  $('rateAdj').textContent=fmtI(rateAdj);
+  $('costIQD').textContent=fmtI(cost);
+  $('saleR').textContent=fmtI(saleR);
+  $('saleW').textContent=fmtI(saleW);
+  $('grossR').textContent=fmtI(gR);
+  $('grossW').textContent=fmtI(gW);
+  $('netR').textContent=fmtI(nR);
+  $('netW').textContent=fmtI(nW);
+  $('share').textContent=fmtI(share);
+  paint('netR',nR);
+  paint('netW',nW);
 }
 
 document.querySelectorAll('input.num').forEach(inp=>{
   inp.addEventListener('input',()=>{sanitize(inp);update()});
 });
 
-document.querySelectorAll('.chip[data-rate]').forEach(ch=>{
-  ch.addEventListener('click',()=>{
-    rate.value=Number(ch.dataset.rate).toLocaleString('en-US');
-    update();
-  });
-});
-
-document.querySelectorAll('.chip[data-unit]').forEach(ch=>{
-  ch.addEventListener('click',()=>{
-    unit=Number(ch.dataset.unit)||1;
-    document.querySelectorAll('.chip[data-unit]').forEach(x=>x.classList.toggle('active',x===ch));
-    update();
-  });
-});
-
-document.addEventListener('pointerdown',e=>{
-  if(!e.target.closest('input,select')){
-    const a=document.activeElement;
-    if(a&&a.tagName==='INPUT')a.blur();
-  }
-});
-
-['currency','expenseType'].forEach(id=>$(id).addEventListener('change',update));
+$('gearBtn').addEventListener('click',()=>$('overlay').classList.add('open'));
+$('barBtn').addEventListener('click',()=>$('overlay').classList.add('open'));
+$('closeSheet').addEventListener('click',()=>$('overlay').classList.remove('open'));
+$('overlay').addEventListener('click',e=>{if(e.target===$('overlay'))$('overlay').classList.remove('open')});
 
 update();
 </script>
